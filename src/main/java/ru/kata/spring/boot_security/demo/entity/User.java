@@ -22,24 +22,17 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name= "password")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "yearOfBirth")
     private int yearOfBirth;
 
-//    @ManyToMany
-//    @JoinTable(name = "users_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Collection<Role> roles;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
-            fetch = FetchType.LAZY
-    )
-    @JoinTable(name="user_role",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     @OnDelete(action = OnDeleteAction.NO_ACTION) // чтобы данные в связанной таблице Role не удалялись
     private Set<Role> roles = new HashSet<>();
 
@@ -87,7 +80,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public void addRole(Role role){
+    public void addRole(Role role) {
         this.roles.add(role);
     }
 
