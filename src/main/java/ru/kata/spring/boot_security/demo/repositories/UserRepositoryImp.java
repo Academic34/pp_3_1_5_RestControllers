@@ -18,15 +18,6 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public User findByUsername(String username) {
-
-//        User result = (User) entityManager.createQuery("select u from User u left join fetch u.roles where u.name=:username").
-//                setParameter("username", username).
-//                getSingleResult();
-//        Set<Role> userRoles = result.getRoles();
-//        System.out.println(userRoles);
-//
-//        return result;
-
         return (User) entityManager.createQuery("select u from User u left join fetch u.roles where u.name=:username").
                 setParameter("username", username).
                 getSingleResult();
@@ -52,7 +43,7 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
-    public void removeUser(int id) {
+    public void removeUser(long id) {
         entityManager.remove(entityManager.find(User.class, id));
     }
 
@@ -60,6 +51,4 @@ public class UserRepositoryImp implements UserRepository {
     public User getUserById(long id) {
         return entityManager.find(User.class, id);
     }
-
-
 }

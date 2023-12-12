@@ -31,27 +31,35 @@ public class AdminController {
         return "usersAll";
     }
 
+    @GetMapping("/new")
+    public String openTheNewUserCreationView(Model model){
+        model.addAttribute("allRoles", roleService.getAllRole());
+        model.addAttribute("user", new User());
+        return "new";
+    }
+
+    @PostMapping("/saveUser")
+    public String saveNewUser(@ModelAttribute("user") User user) {
+        userService.addUser(user);
+        return "redirect:/admin/";
+    }
+
     @GetMapping("/edit")
     public String showUserInEditMode(Model model, @RequestParam("id") long id) {
         model.addAttribute("allRoles", roleService.getAllRole());
         model.addAttribute("user", userService.getUserById(id));
-        System.out.println(roleService.getAllRole());
         return "edit";
     }
 
-//    @PostMapping("/updateUser")
-//    public String updateUser(@ModelAttribute("user") User user) {
-//        System.out.println("We were");
-//        userService.updateUser(user);
-//        return "redirect:/admin";
-//    }
-
-    @PostMapping("/edit/{id}")
-    public String updateUser(@ModelAttribute User user, @PathVariable("id") long id){
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute User user) {
         userService.updateUser(user);
         return "redirect:/admin/";
     }
 
-
-
+    @GetMapping("/delete")
+    public String deleteUser(@RequestParam("id") long id) {
+        userService.removeUser(id);
+        return "redirect:/admin/";
+    }
 }

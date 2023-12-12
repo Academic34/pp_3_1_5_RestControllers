@@ -34,6 +34,4 @@ public class RoleRepositoryImp implements RoleRepository {
             return null;
         }
     }
-
-
 }

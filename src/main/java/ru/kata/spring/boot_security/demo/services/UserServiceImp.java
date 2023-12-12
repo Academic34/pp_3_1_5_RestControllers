@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entity.Role;
@@ -11,18 +12,19 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private UserRepository userRepository;
     private RoleService roleService;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository, RoleService roleService) {
+    public void setUserRepository(UserRepository userRepository, RoleService roleService, PasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -34,25 +36,29 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
+        HashSet<Role> roles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            roles.add(roleService.getRoleByName(role.getRole()));
+        }
+        user.setRoles(roles);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.addUser(user);
     }
 
     @Override
     @Transactional
     public void updateUser(User user) {
-        Set<Role> roles = user.getRoles();
-        HashSet<Role> roles2 = new HashSet<>();
-
-        for(Role role:roles){
-            roles2.add(roleService.getRoleByName(role.getRole()));
+        HashSet<Role> roles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            roles.add(roleService.getRoleByName(role.getRole()));
         }
-        user.setRoles(roles2);
+        user.setRoles(roles);
         userRepository.updateUser(user);
     }
 
     @Override
     @Transactional
-    public void removeUser(int id) {
+    public void removeUser(long id) {
         userRepository.removeUser(id);
     }
 
