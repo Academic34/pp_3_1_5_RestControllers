@@ -14,15 +14,12 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(
-//            fetch = FetchType.LAZY,
-            mappedBy = "roles"
-    )
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
     public Role() {
@@ -32,11 +29,11 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,12 +72,4 @@ public class Role implements GrantedAuthority {
         return Objects.hash(id, role, users);
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }

@@ -17,11 +17,12 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "name")
     private String name;
 
+    @Column(name= "password")
     private String password;
 
     @Column(name = "yearOfBirth")
@@ -33,12 +34,12 @@ public class User implements UserDetails {
 //            inverseJoinColumns = @JoinColumn(name = "role_id"))
 //    private Collection<Role> roles;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}
-            ,fetch = FetchType.LAZY
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+            fetch = FetchType.LAZY
     )
-    @JoinTable(name="user_role"
-            , joinColumns = @JoinColumn(name="user_id")
-            , inverseJoinColumns = @JoinColumn(name="role_id"))
+    @JoinTable(name="user_role",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
     @OnDelete(action = OnDeleteAction.NO_ACTION) // чтобы данные в связанной таблице Role не удалялись
     private Set<Role> roles = new HashSet<>();
 
@@ -50,11 +51,11 @@ public class User implements UserDetails {
         this.yearOfBirth = yearOfBirth;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -89,7 +90,6 @@ public class User implements UserDetails {
     public void addRole(Role role){
         this.roles.add(role);
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -131,12 +131,12 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return yearOfBirth == user.yearOfBirth && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(roles, user.roles);
+        return yearOfBirth == user.yearOfBirth && Objects.equals(id, user.id) && Objects.equals(name, user.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, yearOfBirth, roles);
+        return Objects.hash(id, name, yearOfBirth);
     }
 
     @Override

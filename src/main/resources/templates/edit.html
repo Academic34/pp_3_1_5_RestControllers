@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <div class="d-flex bd-highlight p-1 mb-2 bg-dark">
+        <div class="p-2 flex-grow-1 bd-highlight">
+                    <span class="text-white fs-5">
+                        <span class="fw-bold"></span>
+                            roles: Admin
+                    </span>
+        </div>
+        <div class="btn btn-link">
+            <form th:method="POST" th:action="@{/logout}">
+                <input type="submit" class="btn btn-link link-secondary" value="Logout"/>
+            </form>
+        </div>
+    </div>
+    <h2>Edit user</h2>
+    <form th:action="@{/admin/edit/{id}(id=${user.id})}" th:method="POST" th:object="${user}">
+        <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" th:value="*{name}">
+        <label for="yearOfBirth">Year of birth:</label>
+        <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth" th:value="${user.yearOfBirth}">
+        <div th:each="role : ${allRoles}">
+            <input type="checkbox" th:field="*{roles}" th:value="${role.getRole()}" th:text="${role.getRole()}"/>
+        </div>
+        <tr>
+            <td><input type="hidden" name="password" th:value="${user.password}"/></td>
+        </tr>
+
+
+        <!--        <span th:each="roles : ${allRoles}"-->
+        <!--              th:switch="${roles.getRole()}">-->
+        <!--                <span th:case="'ROLE_ADMIN'">ADMIN </span>-->
+        <!--                <span th:case="'ROLE_USER'">USER </span>-->
+        <!--            <p th:value="${roles.role}" ></p>-->
+        <!--            <p th:field="*{roles}"></p>-->
+        <!--            <p th:id="${roles.id}"></p>-->
+        <!--        </span>-->
+
+
+        <!--        <table border="0" cellpadding="5">-->
+        <!--            <tr>-->
+        <!--                <td>Id: </td>-->
+        <!--                <td><input name="id" th:value="${user.id}" readonly/></td>-->
+        <!--                </td>-->
+        <!--            </tr>-->
+        <!--            <tr>-->
+        <!--                <td>Name: </td>-->
+        <!--                <td><input name="name" th:value="${user.name}"/></td>-->
+        <!--            </tr>-->
+        <!--            <tr>-->
+        <!--                <td><input type="hidden" name="password" th:value="${user.password}" /></td>-->
+        <!--            </tr>-->
+        <!--            <tr>-->
+        <!--                <td>Year of birth: </td>-->
+        <!--                <td><input name="yearOfBirth" th:value="${user.yearOfBirth}" /></td>-->
+        <!--            </tr>-->
+        <!--            <input type="checkbox" id="roles" name="roles"-->
+        <!--                   th:each="roles : ${allRoles}"-->
+        <!--                   th:value="${roles.role}"-->
+        <!--                   th:field="*{roles}"-->
+        <!--                   th:id="${roles.id}"/>-->
+        <td colspan="2"><input type="submit" value="Save"></td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

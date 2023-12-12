@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <div class="d-flex bd-highlight p-1 mb-2 bg-dark">
+        <div class="p-2 flex-grow-1 bd-highlight">
+                    <span class="text-white fs-5">
+                        <span class="fw-bold"></span>
+                            roles: Admin
+                    </span>
+        </div>
+        <div class="btn btn-link">
+            <form th:method="POST" th:action="@{/logout}">
+                <input type="submit" class="btn btn-link link-secondary" value="Logout"/>
+            </form>
+        </div>
+    </div>
+    <h2>User manager</h2>
+    <h3><a href="user">My data</a></h3>
+    <h3><a href="admin/new">New user</a></h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Year of birth</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="User: ${listUsers}">
+            <td th:text="${User.id}"/>
+            <td th:text="${User.name}"/>
+            <td th:text="${User.yearOfBirth}"/>
+            <td>
+                <a th:href="@{/admin/edit?id={id}(id=${User.getId()})}">Edit</a>
+                <a th:href="@{/admin/delete?id={id}(id=${User.getId()})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
