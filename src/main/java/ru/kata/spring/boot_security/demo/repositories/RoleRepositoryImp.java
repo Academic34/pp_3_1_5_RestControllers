@@ -26,12 +26,12 @@ public class RoleRepositoryImp implements RoleRepository {
     }
 
     @Override
-    public Role getRoleByName(String name) {
+    public Role getRoleByName(String name) throws NoResultException {
         try {
             return (Role) entityManager.createQuery("from Role r where r.role = :role").
                     setParameter("role", name).getSingleResult();
         } catch (NoResultException e) {
-            return null;
+            throw new NoResultException(String.format("Role '%s' not found", name));
         }
     }
 }

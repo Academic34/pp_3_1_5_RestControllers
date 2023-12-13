@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -47,6 +45,7 @@ public class AdminController {
     @GetMapping("/edit")
     public String showUserInEditMode(Model model, @RequestParam("id") long id) {
         model.addAttribute("allRoles", roleService.getAllRole());
+        System.out.println(roleService.getAllRole());
         model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }

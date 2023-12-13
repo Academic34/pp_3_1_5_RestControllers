@@ -12,20 +12,17 @@ import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private UserRepository userRepository;
-    private RoleService roleService;
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository, RoleService roleService, PasswordEncoder bCryptPasswordEncoder) {
+    public void setUserRepository(UserRepository userRepository, PasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
-        this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -57,11 +54,6 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
-        HashSet<Role> roles = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            roles.add(roleService.getRoleByName(role.getRole()));
-        }
-        user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.addUser(user);
     }
@@ -69,11 +61,6 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
-        HashSet<Role> roles = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            roles.add(roleService.getRoleByName(role.getRole()));
-        }
-        user.setRoles(roles);
         userRepository.updateUser(user);
     }
 
