@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +27,25 @@ public class UserServiceImp implements UserService {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Transactional
+    public void runAfterStartup() {
+        User admin = new User();
+        admin.setName("admin");
+        admin.setYearOfBirth(28);
+        admin.setPassword(bCryptPasswordEncoder.encode("100"));
+        admin.addRole(new Role("ROLE_ADMIN"));
+        userRepository.addUser(admin);
+
+        User user = new User();
+        user.setName("user");
+        user.setYearOfBirth(18);
+        user.setPassword(bCryptPasswordEncoder.encode("100"));
+        user.addRole(new Role("ROLE_USER"));
+        userRepository.addUser(user);
     }
 
     @Override
