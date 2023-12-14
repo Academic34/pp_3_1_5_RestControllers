@@ -31,15 +31,19 @@ public class UserServiceImp implements UserService {
     @Transactional
     public void runAfterStartup() {
         User admin = new User();
-        admin.setName("admin");
-        admin.setYearOfBirth(28);
+        admin.setFirstName("admin1");
+        admin.setLastName("admin2");
+        admin.setAge(28);
+        admin.setEmail("admin@mail.ru");
         admin.setPassword(bCryptPasswordEncoder.encode("100"));
         admin.addRole(new Role("ROLE_ADMIN"));
         userRepository.addUser(admin);
 
         User user = new User();
-        user.setName("user");
-        user.setYearOfBirth(18);
+        user.setFirstName("user1");
+        user.setLastName("user2");
+        user.setAge(18);
+        user.setEmail("user@mail.ru");
         user.setPassword(bCryptPasswordEncoder.encode("100"));
         user.addRole(new Role("ROLE_USER"));
         userRepository.addUser(user);
