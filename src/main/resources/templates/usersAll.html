@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
-    <title>Admin</title>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Admin page</title>
 </head>
 <body>
 <header>
@@ -64,7 +63,7 @@
                             </div>
                         </nav>
 
-                        <!--User's List-->
+                        <!--Таблица пользователей-->
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" aria-labelledby="nav-users_table-tab"
                                  id="nav-users_table"
@@ -96,186 +95,111 @@
                                     </span>
                                         </td>
 
-<!--                                        <td>-->
-<!--                                            <button type="button" class="btn btn-info" data-toggle="modal"-->
-<!--                                                    th:data-target="${'#edit' + currentUser.id}">-->
-<!--                                                Edit-->
-<!--                                            </button>-->
-<!--                                        </td>-->
-<!--                                        <td>-->
-<!--                                            <button type="button" class="btn btn-danger" data-toggle="modal"-->
-<!--                                                    th:data-target="${'#delete' + currentUser.id}">-->
-<!--                                                Delete-->
-<!--                                            </button>-->
-<!--                                        </td>-->
 
-
-
-<!--                                         Кнопки  для открытия модальных окон Edit и Delete-->
+                                        <!--Кнопки для открытия модальных окон Edit и Delete-->
                                         <td>
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#editModal'+currentUser.getId()}"
-                                                    type="button">Edit
+                                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                                    th:data-target="${'#edit' + currentUser.id}">
+                                                Edit
                                             </button>
                                         </td>
-
                                         <td>
-                                            <button class="btn btn-danger" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#deleteModal'+currentUser.getId()}"
-                                                    type="button">Delete
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    th:data-target="${'#delete' + currentUser.id}">
+                                                Delete
                                             </button>
                                         </td>
 
 
                                         <!--Модальное окно Edit-->
-<!--                                        <div class="modal fade" th:id="${'edit'+ user.id}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">-->
-<!--                                            <div class="modal-dialog" role="dialog">-->
-<!--                                                <form th:method="POST" th:action="@{/admin/updateUser}" th:object="${currentUser}">-->
-<!--                                                    <div class="modal-content">-->
-<!--                                                        <div class="modal-header">-->
-<!--                                                            <h5 class="modal-title" id="editModalLabel">Edit user</h5>-->
-<!--                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                                                <span aria-hidden="true">&times;</span>-->
-<!--                                                            </button>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="modal-body">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="exampleInputID">ID</label>-->
-<!--                                                                <input name="id" disabled="true" type="text" th:value="*{id}" class="form-control form-control-sm"-->
-<!--                                                                       id="exampleInputID" aria-describedby="IDHelp" placeholder="Enter ID">-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="editFirstName">First name</label>-->
-<!--                                                                <input name="firstName" type="text" th:value="*{firstName}" class="form-control form-control-sm"-->
-<!--                                                                       id="editFirstName" placeholder="Enter first name">-->
-<!--                                                                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="editLastName">Last name</label>-->
-<!--                                                                <input name="firstName" type="text" th:value="*{lastName}" class="form-control form-control-sm"-->
-<!--                                                                       id="editLastName" placeholder="Enter last name">-->
-<!--                                                                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="editAge">Age</label>-->
-<!--                                                                <input name="editAge" type="text" th:value="*{age}" class="form-control form-control-sm"-->
-<!--                                                                       id="editAge" aria-describedby="ageHelp" placeholder="Enter age">-->
-<!--                                                                <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="editEmail">Email</label>-->
-<!--                                                                <input name="email" type="text" th:value="*{email}" class="form-control form-control-sm"-->
-<!--                                                                       id="editEmail" aria-describedby="emailHelp" placeholder="Enter email">-->
-<!--&lt;!&ndash;                                                                <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>&ndash;&gt;-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="editPassword">Password</label>-->
-<!--                                                                <input name="password" type="text" th:value="*{password}" class="form-control form-control-sm"-->
-<!--                                                                       id="editPassword" aria-describedby="passwordHelp" placeholder="Enter password">-->
-<!--&lt;!&ndash;                                                                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>&ndash;&gt;-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-check form-check-inline"-->
-<!--                                                                 th:each="role : ${roles}">-->
-
-<!--                                                                <input type="checkbox" th:field="*{roles}"-->
-<!--                                                                       th:value="${role.getRole()}"-->
-<!--                                                                       th:text="${role.getRole()}"/>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="modal-footer">-->
-<!--                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                                                                <button type="submit" class="btn btn-primary">Edit</button>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </form>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-
-
-<!--                                    OLD MODAL VIEW-->
-
                                         <div class="modal fade" aria-hidden="false"
-                                             aria-labelledby="EditModalLabel"
+                                             aria-labelledby="exampleModalLabel"
                                              id="editModal"
-                                             th:id="${'editModal'+currentUser.getId()}">
-                                            <div class="modal-dialog modal-dialog-scrollable">
+                                             th:id="${'edit'+ currentUser.id}">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                                 <div class="modal-content">
 
-                                                    <!-- Заголовок модального окна Edit-->
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Edit user</h5>
-                                                        <button class="btn-close"
-                                                                data-bs-dismiss="modal"
-                                                                type="button" aria-label="Close"></button>
-                                                    </div>
-
-                                                    <!-- Тело модального окна Edit-->
-                                                    <form th:action="@{/admin/updateUser}"
-                                                          th:method="POST"
+                                                    <form th:method="POST" th:action="@{/admin/updateUser}"
                                                           th:object="${currentUser}">
-                                                        <div class="modal-body text-center">
-                                                            <br>
-                                                            <!---Поле Id будет отображаться, но не будет доступно для корректировки-->
-                                                            <label for="edit-id"><b>Id</b></label>
-                                                            <input class="form-control"
-                                                                   id="edit-id"
-                                                                   th:name="id"
-                                                                   th:type="text"
-                                                                   th:value="${currentUser.getId()}" disabled/>
-                                                            <br>
-                                                            <label for="edit-name"><b>First Name</b></label>
-                                                            <input class="form-control" id="edit-name"
-                                                                   th:name="firstName"
-                                                                   th:type="text"
-                                                                   th:value="${currentUser.getFirstName()}"/>
-                                                            <br>
-                                                            <label for="edit-lastName"><b>Last Name</b></label>
-                                                            <input class="form-control" id="edit-lastName"
-                                                                   th:name="lastName"
-                                                                   th:type="text"
-                                                                   th:value="${currentUser.getLastName()}"/>
-                                                            <br>
-                                                            <label for="edit-age"><b>Age</b></label>
-                                                            <input class="form-control" id="edit-age"
-                                                                   th:name="age"
-                                                                   th:type="number"
-                                                                   th:value="${currentUser.getAge()}"/>
-                                                            <br>
-                                                            <label for="edit-email"><b>Email</b></label>
-                                                            <input class="form-control" id="edit-email"
-                                                                   th:name="email"
-                                                                   th:type="text"
-                                                                   th:value="${currentUser.getEmail()}"/>
-                                                            <br>
-                                                            <label for="edit-password"><b>Password</b></label>
-                                                            <input class="form-control" id="edit-password"
-                                                                   th:name="password"
-                                                                   th:type="text"
-                                                                   th:value="${currentUser.getPassword()}"/>
-                                                            <br>
-                                                            <span><b>Check role</b></span>
-                                                            <select aria-label="Default select example"
-                                                                    class="form-select"
-                                                                    th:name="roles" required>
-                                                                <option th:each="role : ${roles}"
-                                                                        th:value="${role.getId()}"
-                                                                        th:switch="${role.getRole()}">
-                                                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                                                    <span th:case="'ROLE_USER'">USER</span>
-                                                                </option>
-                                                            </select>
 
-                                                            <!-- Подвал модального окна Edit-->
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body text-center">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputID">ID</label>
+                                                                <input name="id" disabled="true" type="text"
+                                                                       th:value="*{id}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="exampleInputID" aria-describedby="IDHelp"
+                                                                       placeholder="Enter ID">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editFirstName">First name</label>
+                                                                <input name="firstName" type="text"
+                                                                       th:value="*{firstName}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="editFirstName"
+                                                                       placeholder="Enter first name">
+                                                                <!--<div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>-->
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editLastName">Last name</label>
+                                                                <input name="firstName" type="text"
+                                                                       th:value="*{lastName}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="editLastName" placeholder="Enter last name">
+                                                                <!--<div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>-->
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editAge">Age</label>
+                                                                <input name="editAge" type="text" th:value="*{age}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="editAge" aria-describedby="ageHelp"
+                                                                       placeholder="Enter age">
+                                                                <!--<div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>-->
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editEmail">Email</label>
+                                                                <input name="email" type="text" th:value="*{email}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="editEmail" aria-describedby="emailHelp"
+                                                                       placeholder="Enter email">
+                                                                <!-- <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>-->
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editPassword">Password</label>
+                                                                <input name="password" type="text"
+                                                                       th:value="*{password}"
+                                                                       class="form-control form-control-sm"
+                                                                       id="editPassword" aria-describedby="passwordHelp"
+                                                                       placeholder="Enter password">
+                                                                <!--<div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>-->
+                                                            </div>
+
+                                                            <label>Role</label>
+                                                            <br/>
+                                                            <div class="form-check form-check-inline"
+                                                                 th:each="role : ${allRoles}">
+                                                                <label>
+                                                                    <input type="checkbox" th:value="${role.getRole()}"
+                                                                           th:text="${role.getRole()}">
+                                                                </label>
+                                                            </div>
                                                             <div class="modal-footer">
-                                                                <button class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal"
-                                                                        type="button">Close
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close
                                                                 </button>
-                                                                <button class="btn btn-primary" type="submit"
-                                                                        value="Edit">Save
+                                                                <button type="submit" class="btn btn-primary">Edit
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -283,10 +207,10 @@
 
 
                                         <!-- Модальное окно Delete-->
-                                        <div class="modal" aria-hidden="false" aria-labelledby="exampleModalLabel"
+                                        <div class="modal fade" aria-hidden="false" aria-labelledby="exampleModalLabel"
                                              id="deleteModal"
-                                             th:id="${'deleteModal'+currentUser.getId()}">
-                                            <div class="modal-dialog modal-dialog-scrollable">
+                                             th:id="${'delete' + currentUser.id}">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                                 <div class="modal-content">
 
                                                     <!-- Заголовок модального окна Delete-->
@@ -299,21 +223,21 @@
 
                                                     <!-- Тело модального окна Delete-->
                                                     <div class="modal-body text-center">
-                                                        <div class="d-flex container">
-                                                            <div class="row">
+                                                        <div class="d-flex justify-content-center align-items-center container">
+                                                            <div class="row text-center">
                                                                 <form th:method="GET"
                                                                       th:action="@{/admin/delete/{id}(id=${currentUser.id})}"
                                                                       th:object="${currentUser}">
                                                                     <br>
-                                                                    <!-- Все поля будут disabled для корректирования-->
                                                                     <label for="delete-id"><b>ID</b></label>
                                                                     <input class="form-control"
                                                                            id="delete-id"
                                                                            th:name="id" th:type="text"
-                                                                           th:value="${currentUser.getId()}" disabled/>
+                                                                           th:value="${currentUser.getId()}"
+                                                                           disabled/>
                                                                     <br>
-
-                                                                    <label for="delete-name"><b>First Name</b></label>
+                                                                    <label for="delete-name"><b>First
+                                                                        Name</b></label>
                                                                     <input class="form-control"
                                                                            id="delete-name" th:name="firstName"
                                                                            th:type="text"
@@ -326,30 +250,32 @@
                                                                            id="delete-lastName"
                                                                            th:name="lastName"
                                                                            th:type="text"
-                                                                           th:value="${currentUser.getLastName()}" disabled/>
+                                                                           th:value="${currentUser.getLastName()}"
+                                                                           disabled/>
                                                                     <br>
                                                                     <label for="delete-age"><b>Age</b></label>
                                                                     <input class="form-control"
                                                                            id="delete-age"
                                                                            th:name="age"
                                                                            th:type="number"
-                                                                           th:value="${currentUser.getAge()}" disabled/>
+                                                                           th:value="${currentUser.getAge()}"
+                                                                           disabled/>
                                                                     <br>
                                                                     <label for="delete-email"><b>Email</b></label>
                                                                     <input class="form-control"
                                                                            id="delete-email"
                                                                            th:name="email"
                                                                            th:type="text"
-                                                                           th:value="${currentUser.getEmail()}" disabled/>
-
-                                                                    <!-- Подвал модального окна -->
-                                                                    <div class="modal-footer text-end">
-                                                                        <button class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal"
-                                                                                type="button">Close
+                                                                           th:value="${currentUser.getEmail()}"
+                                                                           disabled/>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close
                                                                         </button>
-                                                                        <input class="btn btn-primary" type="submit"
-                                                                               value="Delete"/>
+                                                                        <button type="submit"
+                                                                                class="btn btn-danger">Delete
+                                                                        </button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -358,7 +284,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </tr>
                                     </tbody>
                                 </table>
@@ -414,7 +339,7 @@
                                                         <label>Role</label>
                                                         <br/>
                                                         <div class="form-check form-check-inline"
-                                                             th:each="role : ${roles}">
+                                                             th:each="role : ${allRoles}">
 
                                                             <input type="checkbox" th:field="*{roles}"
                                                                    th:value="${role.getRole()}"

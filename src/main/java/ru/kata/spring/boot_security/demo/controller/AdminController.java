@@ -30,7 +30,7 @@ public class AdminController {
     @GetMapping()
     public String showAllUsers(Model model, @AuthenticationPrincipal User principalUser) {
         model.addAttribute("listUsers", userService.getAllUsers());
-        model.addAttribute("roles", roleService.getAllRole()); //Добавили все роли из БД
+        model.addAttribute("allRoles", roleService.getAllRole()); //Добавили все роли из БД
         model.addAttribute("principalUser", principalUser);
         model.addAttribute("newUser", new User());
         return "usersAll";
@@ -81,8 +81,8 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam("id") long id) {
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
         return "redirect:/admin/";
     }
