@@ -26,25 +26,6 @@ public class UserServiceImp implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-
-    @EventListener(ApplicationReadyEvent.class)
-    @Transactional
-    public void runAfterStartup() {
-        User admin = new User();
-        admin.setName("admin");
-        admin.setYearOfBirth(28);
-        admin.setPassword(bCryptPasswordEncoder.encode("100"));
-        admin.addRole(new Role("ROLE_ADMIN"));
-        userRepository.addUser(admin);
-
-        User user = new User();
-        user.setName("user");
-        user.setYearOfBirth(18);
-        user.setPassword(bCryptPasswordEncoder.encode("100"));
-        user.addRole(new Role("ROLE_USER"));
-        userRepository.addUser(user);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {

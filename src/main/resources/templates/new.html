@@ -22,9 +22,17 @@
         <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth" th:value="${user.yearOfBirth}">
         <label for="password">Password:</label>
         <input type="text" th:field="*{password}" id="password" th:value="${user.password}">
-        <div th:each="role : ${allRoles}">
-            <input type="checkbox" th:field="*{roles}" th:value="${role.getRole()}" th:text="${role.getRole()}"/>
-        </div>
+        <p>
+            <label>Roles:
+                <br/>
+                <input type="checkbox" name="roles"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.role}"
+                       th:value="${role.role}"
+                       th:selected="${user.roles.contains(role)}"
+                />
+            </label>
+        </p>
         <td colspan="2"><input type="submit" value="Save"></td>
         </tr>
         </table>
