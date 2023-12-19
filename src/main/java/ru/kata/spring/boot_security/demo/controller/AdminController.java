@@ -9,8 +9,6 @@ import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-import java.util.HashSet;
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -40,11 +38,7 @@ public class AdminController {
     @PostMapping("/saveUser")
     public String saveNewUser(@ModelAttribute("user") User user,
                               @RequestParam(value = "roles") String[] selectRoles) {
-//        user.setRoles(new HashSet<>());
-//        for (String role : selectRoles) {
-//            user.addRole(roleService.getRoleByName(role));
-//        }
-//        userService.addUser(user);
+        userService.addUser(user, selectRoles);
         return "redirect:/admin/";
     }
 
@@ -58,11 +52,7 @@ public class AdminController {
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(value = "roles") String[] selectRoles){
-//        user.setRoles(new HashSet<>());
-//        for (String role : selectRoles) {
-//            user.addRole(roleService.getRoleByName(role));
-//        }
-        userService.updateUser(user);
+        userService.updateUser(user, selectRoles);
         return "redirect:/admin/";
     }
 
