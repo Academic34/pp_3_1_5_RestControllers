@@ -19,14 +19,20 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "yearOfBirth")
-    private int yearOfBirth;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY)
@@ -39,9 +45,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, int yearOfBirth) {
-        this.name = name;
-        this.yearOfBirth = yearOfBirth;
+    public User(String firstName, String lastName, int age, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
     }
 
     public long getId() {
@@ -52,24 +60,40 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
-    public void setPassword(String surname) {
-        this.password = surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int yearOfBirth) {
+        this.age = yearOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Role> getRoles() {
@@ -96,7 +120,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return firstName;
     }
 
     @Override
@@ -124,21 +148,23 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return yearOfBirth == user.yearOfBirth && Objects.equals(id, user.id) && Objects.equals(name, user.name);
+        return id == user.id && age == user.age && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, yearOfBirth);
+        return Objects.hash(id, firstName, lastName, age, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
-                ", roles=" + roles.toString() +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

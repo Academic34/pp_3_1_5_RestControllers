@@ -18,7 +18,7 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public User findByUsername(String username) {
-        return (User) entityManager.createQuery("select u from User u left join fetch u.roles where u.name=:username").
+        return (User) entityManager.createQuery("select u from User u left join fetch u.roles where u.email=:username").
                 setParameter("username", username).
                 getSingleResult();
     }
