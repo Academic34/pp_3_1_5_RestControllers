@@ -30,28 +30,17 @@ public class AdminController {
     @GetMapping()
     public String showAllUsers(Model model, @AuthenticationPrincipal User principalUser) {
         model.addAttribute("listUsers", userService.getAllUsers());
-        model.addAttribute("allRoles", roleService.getAllRole()); //Добавили все роли из БД
+        model.addAttribute("allRoles", roleService.getAllRole());
         model.addAttribute("principalUser", principalUser);
         model.addAttribute("newUser", new User());
         return "usersAll";
     }
 
     @PostMapping()
-    public String saveNewUser(@ModelAttribute("user") @Valid User user,
-                              @RequestParam(required = false) String roleAdmin,
-                              @RequestParam(required = false) String roleUser,
-                              BindingResult bindingResult) {
-
-//        userValidator.validate(user, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "users/new";
-        }
-
-//        userService.addUser(user, roleUser, roleAdmin);
-
-        userService.addUser(user);
-        return "redirect:/admin";
+    public String saveNewUser(@ModelAttribute("user") User user,
+                              @RequestParam(value = "roles") String[] selectRoles) {
+        userService.addUser(user, selectRoles);
+        return "redirect:/admin/";
     }
 
     @GetMapping("/new")
@@ -59,13 +48,6 @@ public class AdminController {
         model.addAttribute("allRoles", roleService.getAllRole());
         model.addAttribute("user", new User());
         return "new";
-    }
-
-    @PostMapping("/saveUser")
-    public String saveNewUser(@ModelAttribute("user") User user,
-                              @RequestParam(value = "roles") String[] selectRoles) {
-        userService.addUser(user, selectRoles);
-        return "redirect:/admin/";
     }
 
     @GetMapping("/edit")

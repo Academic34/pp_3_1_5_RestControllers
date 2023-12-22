@@ -24,15 +24,19 @@ public class Init {
     @PostConstruct
     public void runAfterStartup() {
         User admin = new User();
-        admin.setName("admin");
-        admin.setYearOfBirth(28);
+        admin.setFirstName("admin");
+        admin.setLastName("admin1");
+        admin.setAge(25);
+        admin.setEmail("admin@mail.ru");
         admin.setPassword("100");
         admin.addRole(new Role("ROLE_ADMIN"));
         userService.addUser(admin);
 
         User user = new User();
-        user.setName("user");
-        user.setYearOfBirth(18);
+        user.setFirstName("user");
+        user.setLastName("user1");
+        user.setAge(25);
+        user.setEmail("user@mail.ru");
         user.setPassword("100");
         user.addRole(new Role("ROLE_USER"));
         userService.addUser(user);

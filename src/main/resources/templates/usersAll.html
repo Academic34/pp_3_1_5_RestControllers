@@ -135,7 +135,8 @@
                                                                 <label for="editId"><b>ID</b></label>
                                                                 <input name="id" type="text"
                                                                        readonly th:value="*{id}"
-                                                                       class="form-control form-control-sm"
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        id="editId">
                                                             </div>
                                                             <br>
@@ -145,6 +146,7 @@
                                                                        th:value="*{firstName}"
                                                                        class="form-control form-control-sm"
                                                                        id="editFirstName"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        placeholder="Enter first name">
                                                             </div>
                                                             <br>
@@ -152,39 +154,52 @@
                                                                 <label for="editLastName"><b>Last name</b></label>
                                                                 <input name="lastName" type="text"
                                                                        th:value="*{lastName}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="editLastName" placeholder="Enter last name">
+                                                                       class="form-control"
+                                                                       id="editLastName"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
+                                                                       placeholder="Enter last name">
                                                             </div>
                                                             <br>
                                                             <div class="form-group">
                                                                 <label for="editAge"><b>Age</b></label>
                                                                 <input name="age" type="text" th:value="*{age}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="editAge" aria-describedby="ageHelp"
+                                                                       class="form-control"
+                                                                       id="editAge"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        placeholder="Enter age">
                                                             </div>
                                                             <br>
                                                             <div class="form-group">
                                                                 <label for="editEmail"><b>Email</b></label>
                                                                 <input name="email" type="text" th:value="*{email}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="editEmail" aria-describedby="emailHelp"
+                                                                       class="form-control"
+                                                                       id="editEmail"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        placeholder="Enter email">
                                                             </div>
                                                             <br>
                                                             <div class="form-group">
                                                                 <label for="editPassword"><b>Password</b></label>
                                                                 <input name="password" type="text"
-                                                                       th:value="*{password}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="editPassword" aria-describedby="passwordHelp"
+                                                                       class="form-control"
+                                                                       id="editPassword"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        placeholder="Enter password">
                                                             </div>
                                                             <br>
-
                                                             <span><b>Check role</b></span>
+<!--                                                            <div class="form-check form-check-inline"-->
+<!--                                                                 th:name="roles" required-->
+<!--                                                                 th:each="role : ${allRoles}">-->
+
+<!--                                                                <input type="checkbox" th:field="*{roles}"-->
+<!--                                                                       th:value="${role.getRole()}"-->
+<!--                                                                       th:text="${role.getRole()}"/>-->
+<!--                                                            </div>-->
+
                                                             <select aria-label="Default select example"
                                                                     class="form-select"
+                                                                    style="width: 300px; margin: 0 auto"
                                                                     th:name="roles" required>
                                                                 <option th:each="role : ${allRoles}"
                                                                         th:value="${role.getRole()}"
@@ -193,16 +208,7 @@
                                                                     <span th:case="'ROLE_USER'">USER</span>
                                                                 </option>
                                                             </select>
-
-<!--                                                            <label><b>Role</b></label>-->
-<!--                                                            <br/>-->
-<!--                                                            <div class="form-check form-check-inline"-->
-<!--                                                                 th:each="role : ${allRoles}">-->
-<!--                                                                <label>-->
-<!--                                                                    <input type="checkbox" th:value="${role.getRole()}"-->
-<!--                                                                           th:text="${role.getRole()}">-->
-<!--                                                                </label>-->
-<!--                                                            </div>-->
+                                                            <br>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                         data-dismiss="modal">Close
@@ -242,15 +248,17 @@
                                                                 <label for="deleteId"><b>ID</b></label>
                                                                 <input name="id" disabled="true" type="text"
                                                                        th:value="*{id}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="deleteId" aria-describedby="IDHelp">
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
+                                                                       id="deleteId">
                                                             </div>
                                                             <br>
                                                             <div class="form-group">
                                                                 <label for="deleteFirstName"><b>First name</b></label>
                                                                 <input name="firstName" disabled="true" type="text"
                                                                        th:value="*{firstName}"
-                                                                       class="form-control form-control-sm"
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        id="deleteFirstName">
                                                             </div>
                                                             <br>
@@ -258,7 +266,8 @@
                                                                 <label for="deleteLastName"><b>Last name</b></label>
                                                                 <input name="firstName" disabled="true" type="text"
                                                                        th:value="*{lastName}"
-                                                                       class="form-control form-control-sm"
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
                                                                        id="deleteLastName">
                                                             </div>
                                                             <br>
@@ -266,18 +275,29 @@
                                                                 <label for="deleteAge"><b>Age</b></label>
                                                                 <input name="editAge" disabled="true" type="text"
                                                                        th:value="*{age}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="deleteAge" aria-describedby="ageHelp">
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
+                                                                       id="deleteAge">
                                                             </div>
                                                             <br>
                                                             <div class="form-group">
                                                                 <label for="deleteEmail"><b>Email</b></label>
                                                                 <input name="email" disabled="true" type="text"
                                                                        th:value="*{email}"
-                                                                       class="form-control form-control-sm"
-                                                                       id="deleteEmail" aria-describedby="emailHelp">
+                                                                       class="form-control"
+                                                                       style="height: 30px; width: 300px; margin: 0 auto"
+                                                                       id="deleteEmail">
                                                             </div>
+<!--                                                            <div class="form-group"-->
+<!--                                                                 th:name="roles" required-->
+<!--                                                                 th:each="role : ${allRoles}">-->
 
+<!--                                                                <input type="checkbox" disabled="true"-->
+<!--                                                                       th:field="*{roles}"-->
+<!--                                                                       th:value="${role.getRole()}"-->
+<!--                                                                       th:text="${role.getRole()}"/>-->
+<!--                                                            </div>-->
+                                                            <br>
                                                             <div class="modal-footer">
                                                                 <button type="button"
                                                                         class="btn btn-secondary"
@@ -315,51 +335,57 @@
                                         <div class="form-group">
                                             <label for="newFirstName"><b>First name</b></label>
                                             <input name="firstName" type="text"
-                                                   class="form-control form-control-sm"
+                                                   class="form-control"
                                                    id="newFirstName"
+                                                   style="height: 30px; width: 300px; margin: 0 auto"
                                                    placeholder="Enter username">
                                         </div>
                                         <br>
                                         <div class="form-group">
                                             <label for="newLastName"><b>Last name</b></label>
                                             <input name="lastName" type="text"
-                                                   class="form-control form-control-sm" id="newLastName"
-                                                   aria-describedby="emailHelp"
+                                                   class="form-control"
+                                                   id="newLastName"
+                                                   style="height: 30px; width: 300px; margin: 0 auto"
                                                    placeholder="Enter last name">
                                         </div>
                                         <br>
                                         <div class="form-group">
                                             <label for="newAge"><b>Age</b></label>
                                             <input name="age" type="text"
-                                                   class="form-control form-control-sm"
+                                                   class="form-control"
                                                    id="newAge"
-                                                   aria-describedby="emailHelp" placeholder="Enter age">
+                                                   style="height: 30px; width: 300px; margin: 0 auto"
+                                                   placeholder="Enter age">
                                         </div>
                                         <br>
                                         <div class="form-group">
                                             <label for="newEmail"><b>Email</b></label>
                                             <input name="email" type="email"
-                                                   class="form-control form-control-sm" id="newEmail"
-                                                   aria-describedby="emailHelp"
+                                                   class="form-control"
+                                                   id="newEmail"
+                                                   style="height: 30px; width: 300px; margin: 0 auto"
                                                    placeholder="Enter email">
                                         </div>
                                         <br>
                                         <div class="form-group">
                                             <label for="newPassword"><b>Password</b></label>
                                             <input name="password" type="password"
-                                                   class="form-control form-control-sm" id="newPassword"
-                                                   aria-describedby="emailHelp"
+                                                   class="form-control"
+                                                   id="newPassword"
+                                                   style="height: 30px; width: 300px; margin: 0 auto"
                                                    placeholder="Enter password">
                                         </div>
                                         <br>
                                         <label><b>Role</b></label>
                                         <br/>
                                         <div class="form-check form-check-inline"
+                                             th:name="roles" required
                                              th:each="role : ${allRoles}">
 
                                             <input type="checkbox" th:field="*{roles}"
-                                                   th:value="${role.getRole()}"
-                                                   th:text="${role.getRole()}"/>
+                                                   th:value="${role}"
+                                                   th:text="${role}"/>
                                         </div>
                                         <br>
                                         <button type="submit" class="btn btn-success">Add new user

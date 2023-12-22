@@ -51,13 +51,18 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
+        if (!user.getPassword().isEmpty()) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(getUserById(user.getId()).getPassword());
+        }
         userRepository.updateUser(user);
     }
 
     @Override
     @Transactional
     public void updateUser(User user, String[] selectRoles) {
-        userRepository.updateUser(setSelectedRoles(user, selectRoles));
+        updateUser(setSelectedRoles(user, selectRoles));
     }
 
     @Override
