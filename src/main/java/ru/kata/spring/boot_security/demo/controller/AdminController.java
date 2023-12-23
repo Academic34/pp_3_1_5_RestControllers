@@ -43,19 +43,19 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    @GetMapping("/new")
-    public String openTheNewUserCreationView(Model model) {
-        model.addAttribute("allRoles", roleService.getAllRole());
-        model.addAttribute("user", new User());
-        return "new";
-    }
+//    @GetMapping("/new")
+//    public String openTheNewUserCreationView(Model model) {
+//        model.addAttribute("allRoles", roleService.getAllRole());
+//        model.addAttribute("user", new User());
+//        return "new";
+//    }
 
-    @GetMapping("/edit")
-    public String showUserInEditMode(Model model, @RequestParam("id") long id) {
-        model.addAttribute("allRoles", roleService.getAllRole());
-        model.addAttribute("user", userService.getUserById(id));
-        return "edit";
-    }
+//    @GetMapping("/edit")
+//    public String showUserInEditMode(Model model, @RequestParam("id") long id) {
+//        model.addAttribute("allRoles", roleService.getAllRole());
+//        model.addAttribute("user", userService.getUserById(id));
+//        return "edit";
+//    }
 
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("user") User user,

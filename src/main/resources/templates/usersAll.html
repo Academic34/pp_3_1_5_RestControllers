@@ -8,9 +8,9 @@
     <title>Admin page</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
-        <div class="container-fluid text-white">
+
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container-fluid text-white">
             <span class="navbar-header">
                 <span th:text="${principalUser.getEmail()}"></span>
                 <span> with roles: </span>
@@ -18,38 +18,31 @@
                       th:text="${role.getRole().replace('ROLE_', '') + ' '}">
                 </span>
             </span>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
 <div class="container-fluid">
     <div class="row">
-
-        <!--- на странице будет 2 колонки шириной 3 и 9 (макс.ширина 12)--->
-        <div class="col-3">
-            <!--- Устанавливаем навигацию с вертикальными "подушками"--->
-            <div aria-orientation="vertical" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                <a aria-controls="v-pills-admin" aria-selected="true"
-                   class="nav-link" href="/admin"
-                   role="tab" sec:authorize="hasAuthority('ROLE_ADMIN')">Admin</a>
-                <a aria-controls="v-pills-user" aria-selected="false" class="nav-link active"
-                   href="/user"
-                   role="tab" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')">User</a>
+        <div class="p-0 col-2" style="max-height: 100%; height: 100vh; background-color: white">
+            <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" href="#v-pills-admin" role="tab"
+                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-user-tab" data-bs-toggle="pill" href="#v-pills-user" role="tab"
+                   aria-controls="v-pills-user" aria-selected="false">User</a>
             </div>
         </div>
-
-        <div class="col-9">
-            <div class="container-fluid">
-                <h1><b>Admin panel</b></h1>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div aria-labelledby="v-pills-admin-tab" class="tab-pane fade show active" id="v-pills-admin"
-                         role="tabpanel">
+        <div class="col-10">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
+                     aria-labelledby="v-pills-admin-tab">
+                    <div class="container-fluid">
+                        <h1><b>Admin panel</b></h1>
 
                         <!--вкладка Users Table-->
                         <nav>
@@ -118,7 +111,7 @@
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                                 <div class="modal-content">
 
-                                                    <!-- Заголовок модального окна Edit-->
+                                                    <!-- Заголовок -->
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Edit user</h5>
                                                         <button type="button" class="btn-close" data-dismiss="modal"
@@ -126,7 +119,7 @@
                                                         </button>
                                                     </div>
 
-                                                    <!-- Тело модального окна Edit-->
+                                                    <!-- Тело -->
                                                     <form th:method="POST"
                                                           th:action="@{/admin/updateUser}"
                                                           th:object="${currentUser}">
@@ -187,27 +180,19 @@
                                                                        placeholder="Enter password">
                                                             </div>
                                                             <br>
-                                                            <span><b>Check role</b></span>
-<!--                                                            <div class="form-check form-check-inline"-->
-<!--                                                                 th:name="roles" required-->
-<!--                                                                 th:each="role : ${allRoles}">-->
-
-<!--                                                                <input type="checkbox" th:field="*{roles}"-->
-<!--                                                                       th:value="${role.getRole()}"-->
-<!--                                                                       th:text="${role.getRole()}"/>-->
-<!--                                                            </div>-->
-
-                                                            <select aria-label="Default select example"
-                                                                    class="form-select"
-                                                                    style="width: 300px; margin: 0 auto"
-                                                                    th:name="roles" required>
-                                                                <option th:each="role : ${allRoles}"
-                                                                        th:value="${role.getRole()}"
-                                                                        th:switch="${role.getRole()}">
-                                                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                                                    <span th:case="'ROLE_USER'">USER</span>
-                                                                </option>
-                                                            </select>
+                                                            <div class="form-group">
+                                                                <label class="container-fluid "
+                                                                       for="rolesUpdate"><b>Role</b></label>
+                                                                <select class="form-control"
+                                                                        id="rolesUpdate" name="roles" multiple
+                                                                        th:value="${allRoles}"
+                                                                        style="height: 50px; width: 300px; margin: 0 auto">
+                                                                    <option value="ROLE_USER">USER</option>
+                                                                    <option selected="selected"
+                                                                            value="ROLE_ADMIN">ADMIN
+                                                                    </option>
+                                                                </select>
+                                                            </div>
                                                             <br>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
@@ -222,7 +207,6 @@
                                             </div>
                                         </div>
 
-
                                         <!-- Модальное окно Delete-->
                                         <div class="modal fade" aria-hidden="true"
                                              aria-labelledby="exampleModalLabel"
@@ -231,7 +215,7 @@
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                                 <div class="modal-content">
 
-                                                    <!-- Заголовок модального окна Delete-->
+                                                    <!-- Заголовок-->
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Delete user</h4>
                                                         <button type="button" class="btn-close" data-dismiss="modal"
@@ -239,7 +223,7 @@
                                                         </button>
                                                     </div>
 
-                                                    <!-- Тело модального окна Delete-->
+                                                    <!-- Тело -->
                                                     <form th:method="GET"
                                                           th:action="@{/admin/delete/{id}(id=${currentUser.id})}"
                                                           th:object="${currentUser}">
@@ -288,15 +272,19 @@
                                                                        style="height: 30px; width: 300px; margin: 0 auto"
                                                                        id="deleteEmail">
                                                             </div>
-<!--                                                            <div class="form-group"-->
-<!--                                                                 th:name="roles" required-->
-<!--                                                                 th:each="role : ${allRoles}">-->
-
-<!--                                                                <input type="checkbox" disabled="true"-->
-<!--                                                                       th:field="*{roles}"-->
-<!--                                                                       th:value="${role.getRole()}"-->
-<!--                                                                       th:text="${role.getRole()}"/>-->
-<!--                                                            </div>-->
+                                                            <br>
+                                                            <div class="form-group">
+                                                                <label class="container-fluid "
+                                                                       for="deleteRoles"><b>Role</b></label>
+                                                                <select class="form-control"
+                                                                        id="deleteRoles" name="roles" multiple
+                                                                        disabled="true"
+                                                                        th:value="${allRoles}"
+                                                                        style="height: 50px; width: 300px; margin: 0 auto">
+                                                                    <option value="ROLE_USER">USER</option>
+                                                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                                                </select>
+                                                            </div>
                                                             <br>
                                                             <div class="modal-footer">
                                                                 <button type="button"
@@ -377,15 +365,16 @@
                                                    placeholder="Enter password">
                                         </div>
                                         <br>
-                                        <label><b>Role</b></label>
-                                        <br/>
-                                        <div class="form-check form-check-inline"
-                                             th:name="roles" required
-                                             th:each="role : ${allRoles}">
-
-                                            <input type="checkbox" th:field="*{roles}"
-                                                   th:value="${role}"
-                                                   th:text="${role}"/>
+                                        <div class="form-group">
+                                            <label class="container-fluid "
+                                                   for="rolesNew"><b>Role</b></label>
+                                            <select class="form-control"
+                                                    id="rolesNew" name="roles" multiple
+                                                    th:value="${allRoles}"
+                                                    style="height: 50px; width: 300px; margin: 0 auto">
+                                                <option selected="selected" value="ROLE_USER">USER</option>
+                                                <option value="ROLE_ADMIN">ADMIN</option>
+                                            </select>
                                         </div>
                                         <br>
                                         <button type="submit" class="btn btn-success">Add new user
@@ -396,6 +385,49 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Link User that Admin have -->
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                    <main class="col-12">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                            <h2 class="fw-bolder mb-0">User information-page</h2>
+                        </div>
+                        <div class="mine-container">
+                            <table class="table table-striped table-hover caption-top">
+                                <div class="tab-content">
+                                    <h3 class="fs-5 ms-2">About user</h3>
+                                </div>
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:text="${principalUser.getId()}"></td>
+                                    <td th:text="${principalUser.getFirstName()}"></td>
+                                    <td th:text="${principalUser.getLastName()}"></td>
+                                    <td th:text="${principalUser.getAge()}"></td>
+                                    <td th:text="${principalUser.getEmail()}"></td>
+                                    <td>
+                                            <span th:each="role : ${principalUser.getRoles()}"
+                                                  th:switch="${role.getRole()}">
+                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                                    <span th:case="'ROLE_USER'">USER</span>
+                                    </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </main>
+                </div>
+
             </div>
         </div>
     </div>
