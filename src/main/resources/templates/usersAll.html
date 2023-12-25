@@ -25,85 +25,91 @@
         </ul>
     </div>
 </nav>
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="p-0 col-2" style="max-height: 100%; height: 100vh; background-color: white">
-            <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" href="#v-pills-admin" role="tab"
-                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-                <a class="nav-link" id="v-pills-user-tab" data-bs-toggle="pill" href="#v-pills-user" role="tab"
-                   aria-controls="v-pills-user" aria-selected="false">User</a>
-            </div>
+<br>
+<div class="d-flex align-items-start">
+    <!-- Side navigation for "Admin" and "User" tabs -->
+    <div class="col-2">
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" href="#v-pills-admin" role="tab"
+               aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+            <a class="nav-link" id="v-pills-user-tab" data-bs-toggle="pill" href="#v-pills-user" role="tab"
+               aria-controls="v-pills-user" aria-selected="false">User</a>
         </div>
-        <div class="col-10">
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
-                     aria-labelledby="v-pills-admin-tab">
-                    <div class="container-fluid">
-                        <h1><b>Admin panel</b></h1>
+    </div>
 
-                        <!--вкладка Users Table-->
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab"
-                                   data-toggle="tab" href="#nav-users_table" role="tab"
-                                   aria-controls="nav-home" aria-selected="true">Users table</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab"
-                                   data-toggle="tab" href="#nav-newUser" role="tab"
-                                   aria-controls="nav-profile" aria-selected="false">New User</a>
+    <div class="col-10">
+        <div class="tab-content bg-light" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
+                 aria-labelledby="v-pills-admin-tab">
+                <div class="d-flex align-content-center flex-wrap">
+                    <h2><b>Admin panel</b></h2>
+                </div>
+                <!-- Nav tabs для различных функций -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab"
+                                data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab"
+                                aria-controls="home" aria-selected="true">Users table
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="new-user-tab"
+                                data-bs-toggle="tab" data-bs-target="#nav-newUser"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">New User
+                        </button>
+                    </li>
+                </ul>
+                <!--table Users-->
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>All users</h4>
                             </div>
-                        </nav>
-
-                        <!--Таблица пользователей-->
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" aria-labelledby="nav-users_table-tab"
-                                 id="nav-users_table"
-                                 role="tabpanel">
-                                <h3><b>All users</b></h3>
-                                <table class="table table-striped table-bordered">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
-                                        <th scope="col">Age</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>
-                                    </tr>
-                                    <tbody>
-                                    <tr th:each="currentUser : ${listUsers}">
-                                        <td th:text="${currentUser.getId()}">Id</td>
-                                        <td th:text="${currentUser.getFirstName()}">First Name</td>
-                                        <td th:text="${currentUser.getLastName()}">Last Name</td>
-                                        <td th:text="${currentUser.getAge()}">Age</td>
-                                        <td th:text="${currentUser.getEmail()}">Email</td>
-                                        <td>
-                                            <span th:each="role : ${currentUser.getRoles()}"
-                                                  th:switch="${role.getRole()}">
-                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                    <span th:case="'ROLE_USER'">USER</span>
+                        </div>
+                        <div class="my-container" id="my-container">
+                            <table class="table table-striped table-hover caption-top">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="currentUser : ${listUsers}">
+                                    <td th:text="${currentUser.getId}"></td>
+                                    <td th:text="${currentUser.getFirstName}"></td>
+                                    <td th:text="${currentUser.getLastName}"></td>
+                                    <td th:text="${currentUser.getAge}"></td>
+                                    <td th:text="${currentUser.getEmail()}"></td>
+                                    <td>
+                                        <span th:each="role : ${currentUser.getRoles()}"
+                                              th:switch="${role.getRole()}">
+                                            <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                                            <span th:case="'ROLE_USER'">USER</span>
                                     </span>
-                                        </td>
+                                    </td>
 
-                                        <!--Кнопки для открытия модальных окон Edit и Delete-->
-                                        <td>
-                                            <button type="button" class="btn btn-info" data-toggle="modal"
-                                                    th:data-target="${'#edit' + currentUser.id}">
-                                                Edit
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                    th:data-target="${'#delete' + currentUser.id}">
-                                                Delete
-                                            </button>
-                                        </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                                th:data-target="${'#edit' + currentUser.id}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                th:data-target="${'#delete' + currentUser.id}">
+                                            Delete
+                                        </button>
+                                    </td>
 
-
-                                        <!--Модальное окно Edit-->
                                         <div class="modal fade" aria-hidden="true"
                                              aria-labelledby="exampleModalLabel"
                                              id="editModal"
@@ -207,7 +213,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Модальное окно Delete-->
                                         <div class="modal fade" aria-hidden="true"
                                              aria-labelledby="exampleModalLabel"
                                              id="deleteModal"
@@ -300,139 +305,138 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- NEW USER-->
-                            <div class="tab-pane fade" id="nav-newUser" role="tabpanel"
-                                 aria-labelledby="nav-profile-tab">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3>Add new user</h3>
-                                    </div>
-                                </div>
-
-                                <div class="col-md bg-white border">
-                                    <form class="offset-md-4 col-md-4 mt-1 mb-1"
-                                          th:align="center"
-                                          th:action="@{/admin}"
-                                          th:object="${newUser}"
-                                          method="POST">
-                                        <div class="form-group">
-                                            <label for="newFirstName"><b>First name</b></label>
-                                            <input name="firstName" type="text"
-                                                   class="form-control"
-                                                   id="newFirstName"
-                                                   style="height: 30px; width: 300px; margin: 0 auto"
-                                                   placeholder="Enter username">
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="newLastName"><b>Last name</b></label>
-                                            <input name="lastName" type="text"
-                                                   class="form-control"
-                                                   id="newLastName"
-                                                   style="height: 30px; width: 300px; margin: 0 auto"
-                                                   placeholder="Enter last name">
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="newAge"><b>Age</b></label>
-                                            <input name="age" type="text"
-                                                   class="form-control"
-                                                   id="newAge"
-                                                   style="height: 30px; width: 300px; margin: 0 auto"
-                                                   placeholder="Enter age">
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="newEmail"><b>Email</b></label>
-                                            <input name="email" type="email"
-                                                   class="form-control"
-                                                   id="newEmail"
-                                                   style="height: 30px; width: 300px; margin: 0 auto"
-                                                   placeholder="Enter email">
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="newPassword"><b>Password</b></label>
-                                            <input name="password" type="password"
-                                                   class="form-control"
-                                                   id="newPassword"
-                                                   style="height: 30px; width: 300px; margin: 0 auto"
-                                                   placeholder="Enter password">
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label class="container-fluid "
-                                                   for="rolesNew"><b>Role</b></label>
-                                            <select class="form-control"
-                                                    id="rolesNew" name="roles" multiple
-                                                    th:value="${allRoles}"
-                                                    style="height: 50px; width: 300px; margin: 0 auto">
-                                                <option selected="selected" value="ROLE_USER">USER</option>
-                                                <option value="ROLE_ADMIN">ADMIN</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        <button type="submit" class="btn btn-success">Add new user
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Link User that Admin have -->
-                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                    <main class="col-12">
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                            <h2 class="fw-bolder mb-0">User information-page</h2>
-                        </div>
-                        <div class="mine-container">
-                            <table class="table table-striped table-hover caption-top">
-                                <div class="tab-content">
-                                    <h3 class="fs-5 ms-2">About user</h3>
-                                </div>
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Age</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td th:text="${principalUser.getId()}"></td>
-                                    <td th:text="${principalUser.getFirstName()}"></td>
-                                    <td th:text="${principalUser.getLastName()}"></td>
-                                    <td th:text="${principalUser.getAge()}"></td>
-                                    <td th:text="${principalUser.getEmail()}"></td>
-                                    <td>
-                                            <span th:each="role : ${principalUser.getRoles()}"
-                                                  th:switch="${role.getRole()}">
-                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                    <span th:case="'ROLE_USER'">USER</span>
-                                    </span>
-                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </main>
-                </div>
+                    </div>
 
+                    <!--New user -->
+                    <div class="tab-pane fade" id="nav-newUser" role="tabpanel"
+                         aria-labelledby="nav-profile-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Add new user</h4>
+                            </div>
+                        </div>
+
+                        <div class="col-md bg-white border">
+                            <form class="offset-md-4 col-md-4 mt-1 mb-1"
+                                  th:align="center"
+                                  th:action="@{/admin}"
+                                  th:object="${newUser}"
+                                  method="POST">
+                                <div class="form-group">
+                                    <label for="newFirstName"><b>First name</b></label>
+                                    <input name="firstName" type="text"
+                                           class="form-control"
+                                           id="newFirstName"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="Enter username">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="newLastName"><b>Last name</b></label>
+                                    <input name="lastName" type="text"
+                                           class="form-control"
+                                           id="newLastName"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="Enter last name">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="newAge"><b>Age</b></label>
+                                    <input name="age" type="text"
+                                           class="form-control"
+                                           id="newAge"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="Enter age">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="newEmail"><b>Email</b></label>
+                                    <input name="email" type="email"
+                                           class="form-control"
+                                           id="newEmail"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="Enter email">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="newPassword"><b>Password</b></label>
+                                    <input name="password" type="password"
+                                           class="form-control"
+                                           id="newPassword"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="Enter password">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label class="container-fluid "
+                                           for="rolesNew"><b>Role</b></label>
+                                    <select class="form-control"
+                                            id="rolesNew" name="roles" multiple
+                                            th:value="${allRoles}"
+                                            style="height: 50px; width: 300px; margin: 0 auto">
+                                        <option selected="selected" value="ROLE_USER">USER</option>
+                                        <option value="ROLE_ADMIN">ADMIN</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success">Add new user
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User information-page для админа -->
+            <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                <main class="col-12">
+                    <div class="d-flex align-content-center flex-wrap">
+                        <h2><b>User information-page</b></h2>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>About user</h4>
+                        </div>
+                    </div>
+                    <div class="mine-container">
+                        <table class="table table-striped table-hover caption-top">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${principalUser.getId()}"></td>
+                                <td th:text="${principalUser.getFirstName()}"></td>
+                                <td th:text="${principalUser.getLastName()}"></td>
+                                <td th:text="${principalUser.getAge()}"></td>
+                                <td th:text="${principalUser.getEmail()}"></td>
+                                <td>
+                                    <span th:each="role : ${principalUser.getRoles()}"
+                                          th:switch="${role.getRole()}">
+                                        <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                                        <span th:case="'ROLE_USER'">USER</span>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
             </div>
         </div>
     </div>
 </div>
-
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -443,7 +447,6 @@
 <script crossorigin="anonymous"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

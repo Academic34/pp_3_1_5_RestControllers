@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
@@ -31,7 +32,7 @@ public class AdminController {
     public String showAllUsers(Model model, @AuthenticationPrincipal User principalUser) {
         model.addAttribute("listUsers", userService.getAllUsers());
         model.addAttribute("allRoles", roleService.getAllRole());
-        model.addAttribute("principalUser", principalUser);
+        model.addAttribute("principalUser", userService.getUserByName(principalUser.getEmail()));
         model.addAttribute("newUser", new User());
         return "usersAll";
     }
@@ -42,20 +43,6 @@ public class AdminController {
         userService.addUser(user, selectRoles);
         return "redirect:/admin/";
     }
-
-//    @GetMapping("/new")
-//    public String openTheNewUserCreationView(Model model) {
-//        model.addAttribute("allRoles", roleService.getAllRole());
-//        model.addAttribute("user", new User());
-//        return "new";
-//    }
-
-//    @GetMapping("/edit")
-//    public String showUserInEditMode(Model model, @RequestParam("id") long id) {
-//        model.addAttribute("allRoles", roleService.getAllRole());
-//        model.addAttribute("user", userService.getUserById(id));
-//        return "edit";
-//    }
 
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("user") User user,
