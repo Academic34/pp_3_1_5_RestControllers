@@ -44,8 +44,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUser(User user, String[] selectRoles) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.addUser(setSelectedRoles(user, selectRoles));
+        addUser(setSelectedRoles(user, selectRoles));
     }
 
     @Override
