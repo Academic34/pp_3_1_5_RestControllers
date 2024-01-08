@@ -5,24 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class RestAdminController {
 
     private UserService userService;
     private RoleService roleService;
@@ -70,12 +65,5 @@ public class AdminController {
         userService.removeUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    @PostMapping("/updateUser")
-//    public String updateUser(@ModelAttribute("user") User user,
-//                             @RequestParam(value = "roles") String[] selectRoles){
-//        userService.updateUser(user, selectRoles);
-//        return "redirect:/admin/";
-//    }
 
 }
