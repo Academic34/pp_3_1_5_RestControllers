@@ -2,6 +2,7 @@ const listUsersURL = 'http://localhost:8080/admin/users';
 const adminURL = 'http://localhost:8080/admin/getInfoAboutAdmin';
 const newUserURL = 'http://localhost:8080/admin/newUser';
 const findUserURL = 'http://localhost:8080/admin/';
+const listRolesURL = 'http://localhost:8080/admin/roles';
 const editUserURL = 'http://localhost:8080/admin/editUser';
 const deleteUserURL = 'http://localhost:8080/admin/deleteUser/';
 
@@ -40,13 +41,17 @@ function loadTable(listAllUsers) {
 function newUserTab() {
     document.getElementById('newUserForm').addEventListener('submit', (e) => {
         e.preventDefault()
-        let role = document.getElementById('rolesNew')
-        let rolesAddUser = []
-        for (let i = 0; i < role.options.length; i++) {
-            if (role.options[i].selected) {
-                rolesAddUser.push({id: role.options[i].value, role: 'ROLE_' + role.options[i].innerHTML})
-            }
+
+        let formNewUser = document.forms["newUserForm"];
+        let rolesForNewUser = [];
+        for (let i = 0; i < formNewUser.roles.options.length; i++) {
+            if (formNewUser.roles.options[i].selected)
+                rolesForNewUser.push({
+                    id: formNewUser.roles.options[i].value,
+                    role: "ROLE_" + formNewUser.roles.options[i].text
+                });
         }
+
         fetch(newUserURL, {
             method: 'POST',
             headers: {
@@ -58,7 +63,7 @@ function newUserTab() {
                 age: document.getElementById('newAge').value,
                 email: document.getElementById('newEmail').value,
                 password: document.getElementById('newPassword').value,
-                roles: rolesAddUser
+                roles: rolesForNewUser
             })
         })
             .then((response) => {
@@ -75,14 +80,32 @@ function newUserTab() {
     })
 }
 
+function loadRolesForNewUser() {
+    let selectNewRoles = document.getElementById("newRoles");
+    selectNewRoles.innerHTML = "";
+
+    fetch(listRolesURL)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(role => {
+                let option = document.createElement("option");
+                option.value = role.id;
+                option.text = role.role.replace('ROLE_', '');
+                selectNewRoles.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+}
+window.addEventListener("load", loadRolesForNewUser);
+
 function closeModal() {
     document.querySelectorAll(".btn-close").forEach((btn) => btn.click())
 }
 
 
 function editModal(id) {
-    let editId = findUserURL + id;
-    fetch(editId, {
+    let findId = findUserURL + id;
+    fetch(findId, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8'
@@ -101,10 +124,10 @@ function editModal(id) {
 }
 
 function loadRolesForEdit() {
-    let selectEdit = document.getElementById("edit-roles");
+    let selectEdit = document.getElementById("editRoles");
     selectEdit.innerHTML = "";
 
-    fetch("http://localhost:8080/admin/roles")
+    fetch(listRolesURL)
         .then(res => res.json())
         .then(data => {
             data.forEach(role => {
@@ -120,34 +143,29 @@ window.addEventListener("load", loadRolesForEdit);
 
 
 async function editUser() {
-    let idValue = document.getElementById('editId').value;
-    let firstNameValue = document.getElementById('editFirstName').value;
-    let lastNameValue = document.getElementById('editLastName').value;
-    let ageValue = document.getElementById('editAge').value;
-    let emailValue = document.getElementById('editEmail').value;
-    let passwordValue = document.getElementById('editPassword').value;
-    let role = document.getElementById('editRole')
-    // let listOfRole = []
-    // for (let i = 0; i < role.options.length; i++) {
-    //     if (role.options[i].selected) {
-    //         listOfRole.push({id: role.options[i].value, name: 'ROLE_' + role.options[i].innerHTML})
-    //     }
-    // }
-    let rolesForEdit = [];
-    for (let i = 0; i < document.forms["modalEdit"].roles.options.length; i++) {
-        if (document.forms["modalEdit"].roles.options[i].selected) rolesForEdit.push({
-            id: document.forms["modalEdit"].roles.options[i].value,
-            role: "ROLE_" + document.forms["modalEdit"].roles.options[i].text
+    let formEdit = document.forms["modalEdit"];
+
+    let idEditValue = document.getElementById('editId').value;
+    let firstNameEditValue = document.getElementById('editFirstName').value;
+    let lastNameEditValue = document.getElementById('editLastName').value;
+    let ageEditValue = document.getElementById('editAge').value;
+    let emailEditValue = document.getElementById('editEmail').value;
+    let passwordEditValue = document.getElementById('editPassword').value;
+    let rolesEditValue = [];
+    for (let i = 0; i < formEdit.roles.options.length; i++) {
+        if (formEdit.roles.options[i].selected) rolesEditValue.push({
+            id: formEdit.roles.options[i].value,
+            role: "ROLE_" + formEdit.roles.options[i].text
         });
     }
     let user = {
-        id: idValue,
-        firstName: firstNameValue,
-        lastName: lastNameValue,
-        age: ageValue,
-        email: emailValue,
-        password: passwordValue,
-        roles: rolesForEdit
+        id: idEditValue,
+        firstName: firstNameEditValue,
+        lastName: lastNameEditValue,
+        age: ageEditValue,
+        email: emailEditValue,
+        password: passwordEditValue,
+        roles: rolesEditValue
     }
     await fetch(editUserURL, {
         method: 'PATCH',
@@ -198,8 +216,7 @@ async function deleteUser() {
 }
 
 function getUserPage() {
-    let url2 = adminURL
-    fetch(url2).then(response => response.json()).then(user =>
+    fetch(adminURL).then(response => response.json()).then(user =>
         getInformationAboutUser(user))
 }
 
@@ -210,7 +227,7 @@ function getInformationAboutUser(user) {
             newUserTab()
         }
     })
-    document.getElementById('userTableBody').innerHTML = `<tr>
+    document.getElementById('userInformationPage').innerHTML = `<tr>
             <td>${user.id}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>

@@ -34,7 +34,7 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public void addUser(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override
