@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
@@ -16,6 +17,7 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -33,19 +35,20 @@ public class AdminController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> showAllUsers() {
-//        model.addAttribute("listUsers", userService.getAllUsers());
-//        model.addAttribute("allRoles", roleService.getAllRole());
-//        model.addAttribute("principalUser", userService.getUserByName(principalUser.getEmail()));
-//        model.addAttribute("newUser", new User());
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/showInfoAboutAdmin")
-    public ResponseEntity<User> showAllUsers(@AuthenticationPrincipal User principalUser) {
+    @GetMapping("/roles")
+    public ResponseEntity<Set<Role>> getAllRoles() {
+        return new ResponseEntity<>(roleService.getAllRole(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getInfoAboutAdmin")
+    public ResponseEntity<User> getInfoAboutAdmin(@AuthenticationPrincipal User principalUser) {
         return new ResponseEntity<>(userService.getUserByName(principalUser.getEmail()), HttpStatus.OK);
     }
 
-    @GetMapping("/editUser/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
@@ -74,10 +77,5 @@ public class AdminController {
 //        userService.updateUser(user, selectRoles);
 //        return "redirect:/admin/";
 //    }
-//
-//    @GetMapping("/delete/{id}")
-//    public String deleteUser(@PathVariable("id") Long id) {
-//        userService.removeUser(id);
-//        return "redirect:/admin/";
-//    }
+
 }
